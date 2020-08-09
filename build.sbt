@@ -50,6 +50,8 @@ lazy val commonSettings = Seq(
   libraryDependencies += scalaTest % Test,
   libraryDependencies += cats,
   libraryDependencies += catsEffect,
+  libraryDependencies += fuuid,
+  sbt.addCompilerPlugin("org.augustjune" %% "context-applied" % "0.1.3"),
   scalacOptions ++= Seq(
     "-deprecation",
     "-feature",

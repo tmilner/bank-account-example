@@ -3,7 +3,7 @@ package com.tmilner.bankaccountexample.application
 import com.tmilner.bankaccountexample.domain.BankAccount
 import com.tmilner.bankaccountexample.domain.BankAccount.AccountId
 import com.tmilner.bankaccountexample.domain.BankAccountDSL._
-import com.tmilner.bankaccountexample.domain.BankAccountDSL.Implicits._
+import com.tmilner.bankaccountexample.domain.Implicits._
 import cats.implicits._
 import cats.Monad
 

@@ -1,5 +1,5 @@
 package com.tmilner.bankaccountexample.domain
-
+import io.chrisdavenport.fuuid.FUUID
 import com.tmilner.bankaccountexample.domain.BankAccount.{AccountId, AccountStatus}
 
 final case class BankAccount(
@@ -9,7 +9,7 @@ final case class BankAccount(
 )
 
 object BankAccount {
-  final case class AccountId(value: Int) extends AnyVal
+  final case class AccountId(value: FUUID) extends AnyVal
 
   trait AccountStatus
   object AccountStatus {
