@@ -7,11 +7,23 @@ import com.tmilner.bankaccountexample.domain.BankAccountDSL.Implicits._
 import cats.implicits._
 import cats.Monad
 
-class Application[F[_]: RetrieveAccount: SaveAccount: Withdraw: Monad] {
-  def withdraw(id: AccountId, amount: BigDecimal): F[Either[String, BankAccount]] =
+class Application {
+  def withdraw[F[_]: RetrieveAccount: SaveAccount: Withdraw: Monad](
+    id: AccountId,
+    amount: BigDecimal
+  ): F[Either[String, BankAccount]] = {
     for {
       account <- id.retrieveAccount
       withdrawnAccount <- account.flatTraverse[F, BankAccount](_.withdraw(amount))
-      savedAccount <- withdrawnAccount.flatTraverse(t => t.save)
+      savedAccount <- withdrawnAccount.flatTraverse(_.save)
+    } yield savedAccount
+  }
+
+  def createAccount[F[_]: SaveAccount: CreateAccount: Monad](
+    initialAmount: BigDecimal
+  ): F[Either[String, BankAccount]] =
+    for {
+      account <- initialAmount.createAccount
+      savedAccount <- account.flatTraverse(_.save)
     } yield savedAccount
 }
